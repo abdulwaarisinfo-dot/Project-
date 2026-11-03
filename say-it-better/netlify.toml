@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Redirect bare domain to www (or vice versa — update when domain is purchased)
+# [[redirects]]
+#   from = "https://www.sayitbetter.ai/*"
+#   to   = "https://sayitbetter.ai/:splat"
+#   status = 301
+
+# Environment variables — set via Netlify UI (Site Settings → Environment Variables)
+# Required:  CF_ACCOUNT_ID, CF_API_TOKEN
+# Required:  NEXT_PUBLIC_SITE_URL (set to your live domain)
