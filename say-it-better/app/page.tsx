@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 
@@ -233,10 +232,8 @@ export default function HomePage() {
       <footer className="site-footer">
         <div className="footer-inner">
           <div className="footer-brand">
-            <div className="logo">
-              <Image src="/writora-mark-32.png" alt="" width={24} height={24} className="logo-mark" aria-hidden="true" />
-              Writora
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <span className="logo"><img src="/writora-mark.svg" alt="" width={24} height={24} className="logo-mark" aria-hidden="true" />Writora</span>
             <p className="footer-tagline">Write better. Communicate smarter.</p>
           </div>
           <div className="footer-links">
