@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Reply Generator — Write the Right Response Every Time',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/reply-generator' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What if I only have a vague idea of what to say?',
+      acceptedAnswer: { '@type': 'Answer', text: 'That is fine. Write it the way you would tell a friend: “I want to say no but not sound rude” or “I need more time, maybe a week”. The AI fills in the phrasing.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Will it make up details I did not provide?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. The reply is based only on what you write. It will not invent a reason, a date, or a commitment you did not give.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I change the tone of the reply?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Select a tone before generating, or use the Change Tone button after you see the result.' },
+    },
+  ],
+};
+
 export default function ReplyGeneratorPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
