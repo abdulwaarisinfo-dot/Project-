@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'How to Say No Politely — AI Polite Refusal Generator',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/polite-refusal' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Will it explain why I am saying no?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Only if you include a reason in your intention. If you prefer not to give a reason, just say “decline without giving a reason” and the AI will write a respectful no without one.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I decline and leave the door open for later?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Include that in your intention — for example: “decline for now but express interest in the future.” The AI will write a no that keeps the option open.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What tone should I choose?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Friendly for informal relationships, Professional for workplace contexts, Formal for legal or official situations. Empathetic works well when you want to acknowledge that the person is disappointed.' },
+    },
+  ],
+};
+
 export default function PoliteRefusalPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
