@@ -16,7 +16,7 @@ export default function NotFound() {
         <h2>Page not found</h2>
         <p>The page you were looking for doesn&apos;t exist.</p>
         <Link href="/" className="btn-primary">
-          Back to Say It Better
+          Back to Writora
         </Link>
       </main>
     </>
