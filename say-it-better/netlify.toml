@@ -10,8 +10,8 @@
 
 # Redirect bare domain to www (or vice versa — update when domain is purchased)
 # [[redirects]]
-#   from = "https://www.sayitbetter.ai/*"
-#   to   = "https://sayitbetter.ai/:splat"
+#   from = "https://www.writora.live/*"
+#   to   = "https://writora.live/:splat"
 #   status = 301
 
 # Environment variables — set via Netlify UI (Site Settings → Environment Variables)
