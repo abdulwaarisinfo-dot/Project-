@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Writora — AI Writing Assistant',
@@ -82,9 +83,36 @@ const USE_CASES = [
   },
 ];
 
+const SITE_URL = 'https://writora.live';
+
+const webAppSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Writora',
+  url: SITE_URL,
+  description:
+    'AI-powered writing assistant that helps you improve writing, fix grammar, change tone, simplify text, and write better replies. Free, no signup required.',
+  applicationCategory: 'WritingApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={webAppSchema} />
+      <JsonLd data={faqSchema} />
       <Header />
       <main>
         {/* Hero */}
@@ -254,6 +282,7 @@ export default function HomePage() {
             </div>
             <div className="footer-col">
               <span className="footer-col-title">Company</span>
+              <a href="/blog">Blog</a>
               <a href="/about">About</a>
               <a href="/privacy">Privacy</a>
               <a href="/terms">Terms</a>
