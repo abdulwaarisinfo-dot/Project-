@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Text Shortener — Make Your Writing More Concise',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/shorten-text' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Will it remove important information?',
+      acceptedAnswer: { '@type': 'Answer', text: 'The shortener is designed to keep all information that changes the meaning. If you choose much shorter or one sentence, some detail will be dropped — check the result before using it.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the one sentence option for?',
+      acceptedAnswer: { '@type': 'Answer', text: 'It distils a paragraph or more down to its single most important point. Use it for subject lines, headings, executive summaries, or social media previews.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I shorten a result I already generated?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Use the Shorten button under any result to make it more concise without going back to the input.' },
+    },
+  ],
+};
+
 export default function ShortenTextPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
