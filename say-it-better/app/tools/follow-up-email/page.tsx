@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Write a Follow-Up Email — Free AI Follow-Up Generator',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/follow-up-email' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many follow-ups should I send?',
+      acceptedAnswer: { '@type': 'Answer', text: 'In most professional contexts, two to three follow-ups are appropriate before accepting that the person is not going to respond. Space them out: three to five days apart for active conversations, a week or more for cold outreach.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I explain why I am following up?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Keep it brief. You can note a deadline if there is one, or mention that you want to make sure your message arrived — but do not over-explain or apologise.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I follow up about an overdue invoice?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. Include the invoice amount and due date in your intention. Use the Professional or Firm tone to get the balance right between polite and clear.' },
+    },
+  ],
+};
+
 export default function FollowUpEmailPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
