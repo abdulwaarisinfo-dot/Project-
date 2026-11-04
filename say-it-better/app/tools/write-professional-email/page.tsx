@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Write a Professional Email — Free AI Email Writer',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/write-professional-email' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Can I use it for cold outreach emails?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The Improve Writing mode works well for cold emails. Use the Confident or Persuasive tone for outreach that needs to stand out.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Will it change the meaning of what I wrote?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. The AI improves how your message reads without changing what it says. Always review the result before sending.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I improve an email reply?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes — use the Reply Generator if you want to write a reply to a specific message you received.' },
+    },
+  ],
+};
+
 export default function WriteProfessionalEmailPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
