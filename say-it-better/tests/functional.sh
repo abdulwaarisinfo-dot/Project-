@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Functional test suite for Say It Better API and pages.
+# Functional test suite for Writora API and pages.
 # Does NOT require AI credentials — all checks are structural/HTTP.
 # Runs against a locally running server on $BASE (default: http://localhost:3000).
 #
