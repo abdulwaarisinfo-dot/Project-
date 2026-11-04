@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sayitbetter.ai/sitemap.xml
+Sitemap: https://writora.live/sitemap.xml
