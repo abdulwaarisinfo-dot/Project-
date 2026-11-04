@@ -4,7 +4,7 @@ import Header from '@/components/layout/Header';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'Writora privacy policy — how we handle your data and protect your writing.',
+    'Say It Better privacy policy — how we handle your data and protect your writing.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -18,12 +18,12 @@ export default function PrivacyPage() {
           <p className="page-date">Last updated: November 2025</p>
 
           <p>
-            Writora is committed to protecting your privacy. This policy explains what
+            Say It Better is committed to protecting your privacy. This policy explains what
             information we collect, how we use it, and what choices you have.
           </p>
 
           <h2>What we collect</h2>
-          <p>When you use Writora, we process:</p>
+          <p>When you use Say It Better, we process:</p>
           <ul>
             <li>
               <strong>Text you submit:</strong> The text you enter into our tools is sent to a
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
 
           <h2>Cookies and advertising</h2>
           <p>
-            Writora may use Google AdSense to display advertisements. AdSense uses cookies to
+            Say It Better may use Google AdSense to display advertisements. AdSense uses cookies to
             serve relevant ads based on your browsing history. You can opt out of personalised
             advertising through{' '}
             <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">
@@ -87,7 +87,7 @@ export default function PrivacyPage() {
 
           <h2>Children</h2>
           <p>
-            Writora is not directed at children under 13. We do not knowingly collect
+            Say It Better is not directed at children under 13. We do not knowingly collect
             information from children under 13.
           </p>
 
