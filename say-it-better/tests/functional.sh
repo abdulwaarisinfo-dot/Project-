@@ -8,10 +8,10 @@
 #   2. Input validation (7 tests)    — missing/invalid fields return correct 4xx
 #   3. Rate limiting (1 test)        — 9th request within window returns 429
 #   4. Security headers (4 tests)    — X-Frame-Options, X-Content-Type-Options, etc.
-#   5. Page rendering (13 tests)     — every route returns 200
-#   6. SEO fundamentals (6 tests)    — canonical + og:title present on key pages
+#   5. Page rendering (19 tests)     — every route returns 200 (incl. blog)
+#   6. SEO fundamentals (8 tests)    — canonical + og:title present on key pages
 #
-# Total: 37 tests
+# Total: 45 tests
 
 BASE="${BASE:-http://localhost:3000}"
 PASS=0
@@ -119,6 +119,12 @@ pages=(
   "/tools/write-professional-email"
   "/tools/polite-refusal"
   "/tools/follow-up-email"
+  "/blog"
+  "/blog/how-to-politely-decline-a-meeting-request"
+  "/blog/how-to-reply-to-a-rude-email-professionally"
+  "/blog/how-to-follow-up-on-a-job-application"
+  "/blog/formal-vs-professional-vs-casual-email-tone"
+  "/blog/how-to-shorten-a-long-email"
 )
 
 for page in "${pages[@]}"; do
@@ -129,7 +135,7 @@ done
 echo ""
 echo "=== 6. SEO FUNDAMENTALS (6 tests) ==="
 
-seo_pages=("/" "/tools/improve-writing" "/tools/reply-generator")
+seo_pages=("/" "/tools/improve-writing" "/tools/reply-generator" "/blog/how-to-politely-decline-a-meeting-request")
 for page in "${seo_pages[@]}"; do
   html=$(curl -s "$BASE$page")
   echo "$html" | grep -qi 'rel="canonical"' \
@@ -146,4 +152,4 @@ TOTAL=$((PASS + FAIL))
 echo "Passed:  $PASS / $TOTAL"
 echo "Failed:  $FAIL / $TOTAL"
 echo ""
-echo "Categories: Demo AI (6) | Validation (7) | Rate limit (1) | Headers (4) | Pages (13) | SEO (6)"
+echo "Categories: Demo AI (6) | Validation (7) | Rate limit (1) | Headers (4) | Pages (19) | SEO (8)"
