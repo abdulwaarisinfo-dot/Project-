@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 
 export const metadata: Metadata = {
-  title: 'Say It Better — AI Writing Assistant',
+  title: 'Writora — AI Writing Assistant',
   description:
     'Improve your writing, fix grammar, change tone and write better replies with AI. Free, no signup required.',
   alternates: { canonical: '/' },
@@ -32,15 +33,15 @@ const EXAMPLES = [
 
 const FAQ = [
   {
-    q: 'Is Say It Better free?',
-    a: 'Yes. Say It Better is completely free to use. No subscription, no account required. Just type and get results.',
+    q: 'Is Writora free?',
+    a: 'Yes. Writora is completely free to use. No subscription, no account required. Just type and get results.',
   },
   {
     q: 'Do you save my writing?',
     a: 'Your text is sent to our AI for processing but is not stored on our servers. We take privacy seriously.',
   },
   {
-    q: 'What AI powers Say It Better?',
+    q: 'What AI powers Writora?',
     a: 'We use state-of-the-art large language models to produce natural, accurate results. The full details are in our Privacy Policy.',
   },
   {
@@ -49,7 +50,7 @@ const FAQ = [
   },
   {
     q: 'What languages are supported?',
-    a: 'Say It Better works best with English. Support for additional languages is coming soon.',
+    a: 'Writora works best with English. Support for additional languages is coming soon.',
   },
 ];
 
@@ -132,7 +133,7 @@ export default function HomePage() {
         <section className="section examples-section">
           <div className="container">
             <h2 className="section-heading">Before &amp; after</h2>
-            <p className="section-sub">Real examples of what Say It Better can do.</p>
+            <p className="section-sub">Real examples of what Writora can do.</p>
             <div className="examples-list">
               {EXAMPLES.map((ex, i) => (
                 <div key={i} className="example-card">
@@ -232,8 +233,11 @@ export default function HomePage() {
       <footer className="site-footer">
         <div className="footer-inner">
           <div className="footer-brand">
-            <span className="logo">Say It Better</span>
-            <p className="footer-tagline">You know what you mean. We&apos;ll help you say it.</p>
+            <div className="logo">
+              <Image src="/writora-mark-32.png" alt="" width={24} height={24} className="logo-mark" aria-hidden="true" />
+              Writora
+            </div>
+            <p className="footer-tagline">Write better. Communicate smarter.</p>
           </div>
           <div className="footer-links">
             <div className="footer-col">
@@ -260,7 +264,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} Say It Better. Free AI writing assistant.</p>
+          <p>© {new Date().getFullYear()} Writora. Free AI writing assistant.</p>
         </div>
       </footer>
     </>
