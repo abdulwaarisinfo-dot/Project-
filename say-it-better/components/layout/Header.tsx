@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
         <Link href="/" className="logo">
-          <Image src="/writora-mark-32.png" alt="" width={24} height={24} className="logo-mark" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/writora-mark.svg" alt="" width={24} height={24} className="logo-mark" aria-hidden="true" />
           Writora
         </Link>
         <nav className="nav" aria-label="Main navigation">
