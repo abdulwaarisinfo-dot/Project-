@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Grammar Fixer — Correct Grammar, Spelling and Punctuation',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/fix-grammar' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Will it rewrite my text entirely?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. The grammar fixer only corrects errors. It preserves your sentence structure and style. If you want a full rewrite, use Improve Writing.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does it support British and American English?',
+      acceptedAnswer: { '@type': 'Answer', text: 'The AI corrects based on standard usage and will match the variety present in your text. If you are writing British English, it will not change “colour” to “color”.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the maximum text length?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Up to 4,000 characters per request.' },
+    },
+  ],
+};
+
 export default function FixGrammarPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
