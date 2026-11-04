@@ -1,4 +1,4 @@
-# Say It Better — Developer Handover
+# Writora — Developer Handover
 
 This document covers architecture, request flow, environment variables, key files, and outstanding tasks. Read it alongside `README.md`.
 
@@ -46,7 +46,7 @@ The app is a single Next.js 14 project using the App Router. There is no databas
 |---|---|---|
 | `CF_ACCOUNT_ID` | Production | Cloudflare account ID from dash.cloudflare.com |
 | `CF_API_TOKEN` | Production | Cloudflare API token with Workers AI permission |
-| `NEXT_PUBLIC_SITE_URL` | Production | Full URL of the live site, e.g. `https://sayitbetter.ai` |
+| `NEXT_PUBLIC_SITE_URL` | Production | Full URL of the live site, e.g. `https://writora.live` |
 | `NEXT_PUBLIC_GA_ID` | Optional | Google Analytics 4 measurement ID. Not set = analytics disabled. |
 | `NEXT_PUBLIC_ADSENSE_ID` | Optional | AdSense publisher ID. Not set = ads disabled. |
 
