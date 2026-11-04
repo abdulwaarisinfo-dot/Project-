@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Writing Improver — Polish Any Text Instantly',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/improve-writing' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Will it change what I mean?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. The improver is designed to preserve your intended meaning. If you want the tone to change, use the Tone Changer instead.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long can my text be?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Up to 4,000 characters per request — roughly 600–700 words.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I edit the result?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. The result panel is fully editable. Click into it and make changes before copying.' },
+    },
+  ],
+};
+
 export default function ImproveWritingPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
