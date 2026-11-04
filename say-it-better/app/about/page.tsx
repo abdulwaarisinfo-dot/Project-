@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 
 export const metadata: Metadata = {
-  title: 'About Writora',
+  title: 'About Say It Better',
   description:
-    'Writora is a free AI writing assistant that helps people communicate more clearly, confidently, and effectively.',
+    'Say It Better is a free AI writing assistant that helps people communicate more clearly, confidently, and effectively.',
   alternates: { canonical: '/about' },
 };
 
@@ -14,13 +14,13 @@ export default function AboutPage() {
       <Header />
       <main>
         <div className="static-page">
-          <h1>About Writora</h1>
+          <h1>About Say It Better</h1>
           <p className="page-date">Building better communication, one message at a time.</p>
 
           <p>
-            Writora is a free AI writing assistant built for anyone who has ever struggled to find
-            the right words. Whether you&apos;re writing an email, crafting a reply, or trying to
-            make your point more clearly — Writora helps you get there.
+            Say It Better is a free AI writing assistant built for anyone who has ever struggled to
+            find the right words. Whether you&apos;re writing an email, crafting a reply, or trying
+            to make your point more clearly — Say It Better helps you get there.
           </p>
 
           <h2>Why we built this</h2>
@@ -30,15 +30,15 @@ export default function AboutPage() {
             lasting impression. But not everyone has the time or the skill to polish every word.
           </p>
           <p>
-            Writora bridges that gap. It takes what you mean and helps you express it clearly —
+            Say It Better bridges that gap. It takes what you mean and helps you say it better —
             without requiring an account, a subscription, or any technical knowledge.
           </p>
 
           <h2>How it works</h2>
           <p>
-            Writora uses state-of-the-art AI language models to understand your text and produce
-            natural, human-sounding results. The AI is designed to be helpful and accurate — it
-            preserves your meaning while improving how it reads.
+            Say It Better uses state-of-the-art AI language models to understand your text and
+            produce natural, human-sounding results. The AI is designed to be helpful and accurate —
+            it preserves your meaning while improving how it reads.
           </p>
           <p>
             We&apos;ve built dedicated tools for six communication tasks: improving writing, writing
@@ -48,7 +48,7 @@ export default function AboutPage() {
           </p>
 
           <h2>Who it&apos;s for</h2>
-          <p>Writora is for everyone:</p>
+          <p>Say It Better is for everyone:</p>
           <ul>
             <li>Students writing assignments or emails to professors</li>
             <li>Professionals drafting client communication</li>
@@ -59,7 +59,7 @@ export default function AboutPage() {
 
           <h2>Privacy and cost</h2>
           <p>
-            Writora is free to use and requires no account. We process your text through
+            Say It Better is free to use and requires no account. We process your text through
             a third-party AI service to generate results, but we do not store your writing on
             our servers. You can find the full details in our{' '}
             <a href="/privacy">Privacy Policy</a>.
