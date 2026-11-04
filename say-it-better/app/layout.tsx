@@ -10,8 +10,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Say It Better — AI Writing Assistant',
-    template: '%s | Say It Better',
+    default: 'Writora — AI Writing Assistant',
+    template: '%s | Writora',
   },
   description:
     'AI-powered writing assistant that helps you improve writing, fix grammar, change tone, simplify text, and write better replies. Free, no signup required.',
@@ -25,18 +25,18 @@ export const metadata: Metadata = {
     'rewrite text',
     'writing improver',
   ],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://sayitbetter.ai'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://writora.live'),
   openGraph: {
     type: 'website',
-    siteName: 'Say It Better',
-    title: 'Say It Better — AI Writing Assistant',
+    siteName: 'Writora',
+    title: 'Writora — AI Writing Assistant',
     description:
       'Improve your writing, find the right words, and respond with confidence. Free AI writing tool.',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Say It Better — AI Writing Assistant',
+    title: 'Writora — AI Writing Assistant',
     description: 'Improve your writing, find the right words, and respond with confidence.',
   },
   robots: {
