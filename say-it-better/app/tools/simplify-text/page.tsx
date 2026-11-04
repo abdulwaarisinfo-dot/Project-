@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Text Simplifier — Make Complex Writing Easy to Understand',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/simplify-text' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the difference between the three simplification levels?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Simple English removes jargon and shortens sentences but keeps technical terms where they are necessary. Very simple avoids all technical vocabulary and explains concepts from scratch. Everyday language produces a conversational version, as if explaining it in a chat.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does it keep all the original information?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes — the goal is to preserve all essential meaning. If the original contains multiple technical ideas, all of them will appear in the simplified version.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I simplify a long document?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Up to 4,000 characters per request. For longer texts, process it in sections.' },
+    },
+  ],
+};
+
 export default function SimplifyTextPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
