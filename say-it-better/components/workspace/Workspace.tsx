@@ -23,9 +23,6 @@ export default function Workspace({ initialMode = 'improve' }: WorkspaceProps) {
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
   const [showToneDropdown, setShowToneDropdown] = useState(false);
-  const [privacyDismissed, setPrivacyDismissed] = useState(() => {
-    try { return localStorage.getItem('sib_privacy_ok') === '1'; } catch { return false; }
-  });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -161,30 +158,8 @@ export default function Workspace({ initialMode = 'improve' }: WorkspaceProps) {
   const canGenerate = primaryText.trim().length > 0 && !loading;
   const toneRequired = mode === 'tone';
 
-  const dismissPrivacy = () => {
-    setPrivacyDismissed(true);
-    try { localStorage.setItem('sib_privacy_ok', '1'); } catch { /* ignore */ }
-  };
-
   return (
     <div className="workspace" role="main">
-      {/* Privacy notice */}
-      {!privacyDismissed && (
-        <div className="privacy-notice" role="note">
-          <span>
-            Text you submit is sent to{' '}
-            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">
-              Cloudflare&apos;s AI API
-            </a>{' '}
-            for processing. Cloudflare does not train models on your text.{' '}
-            <a href="/privacy">Privacy policy</a>
-          </span>
-          <button className="privacy-dismiss" onClick={dismissPrivacy} aria-label="Dismiss privacy notice">
-            Got it
-          </button>
-        </div>
-      )}
-
       {/* Mode selector */}
       <div className="mode-bar">
         <div className="mode-chips" role="tablist" aria-label="Writing modes">
