@@ -33,11 +33,13 @@ export const metadata: Metadata = {
     description:
       'Improve your writing, find the right words, and respond with confidence. Free AI writing tool.',
     locale: 'en_US',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Writora — AI Writing Assistant' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Writora — AI Writing Assistant',
     description: 'Improve your writing, find the right words, and respond with confidence.',
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
