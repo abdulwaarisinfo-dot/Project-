@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Quality evaluation test suite for Say It Better
-# Tests AI output quality across all 6 modes (5 cases each = 30 tests).
+# Quality evaluation test suite for Writora
+# Tests AI output quality across all 6 modes (5 cases each = 30 tests) plus 5 naturalness tests = 35 total.
 #
 # REQUIREMENTS
 #   - CF_ACCOUNT_ID + CF_API_TOKEN must be set in the environment.
@@ -121,6 +121,24 @@ check_tone_signal() {
   esac
 }
 
+# Fails if the output opens with a generic AI filler phrase.
+# Targets the most common patterns: "Absolutely!", "Certainly!", "Of course!",
+# "I'd be happy to", "I hope this finds you", etc.
+check_no_ai_opener() {
+  ! echo "$1" | head -1 | grep -qiE '^(absolutely[^a-z]|certainly[^a-z]|of course[^a-z]|sure[^a-z]|great[^a-z]|definitely[^a-z]|i.d be (happy|glad|delighted) to|i would be (happy|glad|delighted) to|i hope this (message |email )?(finds|reaches))'
+}
+
+# Fails if the output contains more em dashes (—) than the input.
+# Detects the AI habit of merging sentences with em dashes instead of using
+# natural punctuation. Correctly hyphenated compound words are unaffected
+# because this checks for the em dash character only.
+check_no_introduced_emdash() {
+  local in_count out_count
+  in_count=$(echo "$1" | grep -o '—' | wc -l)
+  out_count=$(echo "$2" | grep -o '—' | wc -l)
+  [ "$out_count" -le "$in_count" ]
+}
+
 # ── Detect demo mode ─────────────────────────────────────────────────────────
 echo "=== Detecting mode ==="
 PROBE=$(api_call "99.0.0.1" '{"mode":"improve","text":"test"}')
@@ -129,17 +147,18 @@ if is_demo_response "$PROBE"; then
   echo "BLOCKED: Server is in demo mode — no AI credentials configured."
   echo "Set CF_ACCOUNT_ID + CF_API_TOKEN, restart the server, then re-run."
   echo ""
-  echo "Quality test results: 0 passed / 0 failed / 30 skipped (blocked — demo mode)"
+  echo "Quality test results: 0 passed / 0 failed / 35 skipped (blocked — demo mode)"
   exit 2
 fi
 echo "AI mode active — running quality checks."
 echo ""
 
 # ── Test runner ───────────────────────────────────────────────────────────────
-# Args: id  mode  label  ip  body  input_text  tone_check  check_short  check_reply_inv
+# Args: id  mode  label  ip  body  input_text  tone_check  check_short  check_reply_inv  check_ai_opener  check_no_emdash
 run_quality_test() {
   local id="$1" mode="$2" label="$3" ip="$4" body="$5"
   local input_text="$6" tone_check="$7" check_short="$8" check_reply_inv="$9"
+  local check_ai_opener="${10}" check_no_emdash="${11}"
 
   local resp result
   resp=$(api_call "$ip" "$body")
@@ -177,6 +196,16 @@ run_quality_test() {
   if [ "$check_short" = "yes" ]; then
     ((checks_total++))
     if check_shorter "$input_text" "$result"; then ((checks_passed++)); else fail_reasons+=" [not shorter]"; fi
+  fi
+
+  if [ "$check_ai_opener" = "yes" ]; then
+    ((checks_total++))
+    if check_no_ai_opener "$result"; then ((checks_passed++)); else fail_reasons+=" [ai-opener]"; fi
+  fi
+
+  if [ "$check_no_emdash" = "yes" ]; then
+    ((checks_total++))
+    if check_no_introduced_emdash "$input_text" "$result"; then ((checks_passed++)); else fail_reasons+=" [em-dash]"; fi
   fi
 
   if [ "$checks_passed" -eq "$checks_total" ]; then
@@ -425,10 +454,54 @@ run_quality_test "G-5" "grammar" "style preserved" "25.0.0.5" \
 
 echo ""
 
+# ── NATURALNESS (5 tests) ────────────────────────────────────────────────────
+echo "=== NATURALNESS (5 tests) ==="
+
+# EXPECTED N-1: A casual, clear rewrite that still sounds like a quick internal
+# message. NOT "I am pleased to report that today's client engagement yielded
+# positive outcomes." Contractions fine. No AI opener, no em dash introduced.
+run_quality_test "N-1" "improve" "casual voice preserved" "26.0.0.1" \
+  '{"mode":"improve","text":"we had a call with the client today and i think theyre pretty happy with the direction were going"}' \
+  "we had a call with the client today and i think theyre pretty happy with the direction were going" "" "" "" "yes" "yes"
+
+# EXPECTED N-2: Two short, clean sentences stay as two short, clean sentences.
+# Should NOT become "The deadline is Friday — make sure the report is ready."
+# (em dash introduced) or "The deadline is on Friday; please ensure the report
+# has been completed prior to this date." (over-formalised). No AI opener.
+run_quality_test "N-2" "improve" "no em dash introduced" "26.0.0.2" \
+  '{"mode":"improve","text":"The deadline is Friday. Make sure the report is ready by then."}' \
+  "The deadline is Friday. Make sure the report is ready by then." "" "" "" "yes" "yes"
+
+# EXPECTED N-3: One short, direct reply — no more than ~15 words. Something like
+# "Sure, sending it now." or "Yes, on its way." NOT "Thank you for reaching out.
+# I would be happy to send the file over. Please find it attached." No AI opener,
+# no invented content.
+run_quality_test "N-3" "reply" "brief reply stays brief" "26.0.0.3" \
+  '{"mode":"reply","replyTo":"Can you send me the file?","intention":"Yes, sending it now"}' \
+  "Can you send me the file?" "" "" "yes" "yes" ""
+
+# EXPECTED N-4: Grammar fixed, casual register fully preserved. "We were going to
+# reschedule the thing but nobody could agree on a time." NOT "We had intended to
+# reschedule the matter; however, a consensus regarding timing could not be
+# reached." The word "thing" may stay. No AI opener.
+run_quality_test "N-4" "grammar" "informal register preserved" "26.0.0.4" \
+  '{"mode":"grammar","text":"we was gonna reschedule the thing but nobody could agree on a time"}' \
+  "we was gonna reschedule the thing but nobody could agree on a time" "" "" "" "yes" ""
+
+# EXPECTED N-5: Professional, not corporate. Something like "The project is going
+# well and we should be done by end of the week." NOT "I am writing to formally
+# advise you that project progress remains on schedule — completion is anticipated
+# by week's end." No AI opener, no introduced em dash.
+run_quality_test "N-5" "tone" "professional stays human" "26.0.0.5" \
+  '{"mode":"tone","text":"hey the project is going well and we should be done by end of week","tone":"professional"}' \
+  "hey the project is going well and we should be done by end of week" "professional" "" "" "yes" "yes"
+
+echo ""
+
 # ── Summary ───────────────────────────────────────────────────────────────────
 TOTAL=$((PASS + FAIL))
 echo "=== Quality Test Results ==="
-echo "Executed: $TOTAL / 30"
+echo "Executed: $TOTAL / 35"
 echo "Passed:   $PASS / $TOTAL  (automated checks only)"
 echo "Failed:   $FAIL / $TOTAL"
 echo ""
