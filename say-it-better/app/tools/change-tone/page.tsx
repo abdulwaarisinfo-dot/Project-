@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Header from '@/components/layout/Header';
 import Workspace from '@/components/workspace/Workspace';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Tone Changer — Rewrite Any Message in a Different Tone',
@@ -10,9 +11,32 @@ export const metadata: Metadata = {
   alternates: { canonical: '/tools/change-tone' },
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Will the meaning change?',
+      acceptedAnswer: { '@type': 'Answer', text: 'No. The tone changer is designed to preserve the meaning exactly. Only the style, word choice, and register change.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between formal and professional?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Formal is more rigid — suited to legal or official documents. Professional is business-appropriate but natural, suited to everyday workplace communication.' },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I change the tone of a result I already generated?',
+      acceptedAnswer: { '@type': 'Answer', text: 'Yes. After any result appears, use the Change Tone button below it to apply a different tone without re-entering your text.' },
+    },
+  ],
+};
+
 export default function ChangeTonePage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Header />
       <main>
         <div className="tool-hero">
